@@ -1,0 +1,419 @@
+
+mysql> create database Assignment_04
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use Assignment_03;
+Database changed
+mysql> drop database Assignment_04;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> use Assignment_03;
+Database changed
+mysql>
+mysql>
+mysql> show tables;
++-------------------------+
+| Tables_in_assignment_03 |
++-------------------------+
+| department              |
+| employees               |
+| jobs                    |
++-------------------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from department
+    -> ;
++---------------+------------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME        | MANAGER_ID | LOCATION_ID |
++---------------+------------------------+------------+-------------+
+|            10 | Administration         |        200 |        1700 |
+|            20 | Marketing              |        201 |        1800 |
+|            30 | Purchasing             |        114 |        1700 |
+|            40 | Human Resources        |        203 |        2400 |
+|            50 | Shipping               |        121 |        1500 |
+|            60 | IT                     |        103 |        1400 |
+|            70 | Public Relations       |        204 |        2700 |
+|            80 | Sales                  |        145 |        2500 |
+|            90 | Computer Engineering   |        105 |        1300 |
+|           100 | Information Technology |        138 |        2200 |
+|           101 | Developer              |        150 |        1000 |
++---------------+------------------------+------------+-------------+
+11 rows in set (0.01 sec)
+
+mysql> select * from Employees;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | not available | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.10 |         10 |           200 |
+|         101 | Neena      | Kochhar   | not available | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.10 |         10 |           200 |
+|         102 | Lex        | De Haan   | not available | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.10 |        200 |            10 |
+|         103 | Alexander  | Hunold    | not available | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.10 |        103 |            60 |
+|         104 | Bruce      | Ernst     | not available | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.10 |        103 |            60 |
+|         105 | David      | Austin    | not available | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         106 | Valli      | Pataballa | not available | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         107 | Diana      | Lorentz   | not available | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.10 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.10 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.10 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> select first_name as 'First Name',last_name as 'Last Name'
+    -> from Employees;
++------------+-----------+
+| First Name | Last Name |
++------------+-----------+
+| Steven     | King      |
+| Neena      | Kochhar   |
+| Lex        | De Haan   |
+| Alexander  | Hunold    |
+| Bruce      | Ernst     |
+| David      | Austin    |
+| Valli      | Pataballa |
+| Diana      | Lorentz   |
+| Nancy      | Greenberg |
+| Daniel     | Faviet    |
++------------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select distinct department_id from Employees;
++---------------+
+| department_id |
++---------------+
+|           200 |
+|            10 |
+|            60 |
+|            30 |
+|            80 |
++---------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from employees
+    -> order by first_name desc;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         106 | Valli      | Pataballa | not available | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         100 | Steven     | King      | not available | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.10 |         10 |           200 |
+|         101 | Neena      | Kochhar   | not available | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.10 |         10 |           200 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.10 |        145 |            80 |
+|         102 | Lex        | De Haan   | not available | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.10 |        200 |            10 |
+|         107 | Diana      | Lorentz   | not available | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.10 |        114 |            30 |
+|         105 | David      | Austin    | not available | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.10 |        145 |            80 |
+|         104 | Bruce      | Ernst     | not available | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.10 |        103 |            60 |
+|         103 | Alexander  | Hunold    | not available | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.10 |        103 |            60 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.01 sec)
+
+
+mysql> select concat(first_name,'',Last_name) as Name,salary,salary * 015 as PF
+    -> from Employees;
++-----------------+----------+-----------+
+| Name            | salary   | PF        |
++-----------------+----------+-----------+
+| StevenKing      | 26400.00 | 396000.00 |
+| NeenaKochhar    | 18700.00 | 280500.00 |
+| LexDe Haan      | 18700.00 | 280500.00 |
+| AlexanderHunold |  9900.00 | 148500.00 |
+| BruceErnst      |  6600.00 |  99000.00 |
+| DavidAustin     |  5280.00 |  79200.00 |
+| ValliPataballa  |  5280.00 |  79200.00 |
+| DianaLorentz    |  4620.00 |  69300.00 |
+| NancyGreenberg  | 13200.00 | 198000.00 |
+| DanielFaviet    |  9900.00 | 148500.00 |
++-----------------+----------+-----------+
+10 rows in set (0.01 sec)
+
+mysql> select EMPLOYEE_ID,
+    ->        CONCAT(FIRST_NAME, ' ', LAST_NAME) AS Names,
+    ->        SALARY
+    -> from Employees
+    -> order by SALARY asc;
++-------------+------------------+----------+
+| EMPLOYEE_ID | Names            | SALARY   |
++-------------+------------------+----------+
+|         107 | Diana Lorentz    |  4620.00 |
+|         105 | David Austin     |  5280.00 |
+|         106 | Valli Pataballa  |  5280.00 |
+|         104 | Bruce Ernst      |  6600.00 |
+|         103 | Alexander Hunold |  9900.00 |
+|         109 | Daniel Faviet    |  9900.00 |
+|         108 | Nancy Greenberg  | 13200.00 |
+|         101 | Neena Kochhar    | 18700.00 |
+|         102 | Lex De Haan      | 18700.00 |
+|         100 | Steven King      | 26400.00 |
++-------------+------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select sum(SALARY) as Total
+    -> from Employees;
++-----------+
+| Total     |
++-----------+
+| 118580.00 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select Max(SALARY) as MAX,Min(SALARY) as MIN
+    -> from Employees;
++----------+---------+
+| MAX      | MIN     |
++----------+---------+
+| 26400.00 | 4620.00 |
++----------+---------+
+1 row in set (0.00 sec)
+
+
+
+mysql> select avg(SALARY) as AVERAGE_SALARY, count(EMPLOYEE_ID) aS TOTAL_EMPLOYEES
+    -> from Employees;
++----------------+-----------------+
+| AVERAGE_SALARY | TOTAL_EMPLOYEES |
++----------------+-----------------+
+|   11858.000000 |              10 |
++----------------+-----------------+
+1 row in set (0.01 sec)
+
+mysql> select count(first_name) as Total_Employees
+    -> from Employees;
++-----------------+
+| Total_Employees |
++-----------------+
+|              10 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select distinct JOB_ID
+    -> from Employees;
++---------+
+| JOB_ID  |
++---------+
+| AD_PRES |
+| AD_VP   |
+| IT_PROG |
+| SA_MAN  |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select count(DISTINCT JOB_ID) as Total_Jobs
+    -> from Employees;
++------------+
+| Total_Jobs |
++------------+
+|          4 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employees
+    -> limit 10;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | not available | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.10 |         10 |           200 |
+|         101 | Neena      | Kochhar   | not available | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.10 |         10 |           200 |
+|         102 | Lex        | De Haan   | not available | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.10 |        200 |            10 |
+|         103 | Alexander  | Hunold    | not available | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.10 |        103 |            60 |
+|         104 | Bruce      | Ernst     | not available | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.10 |        103 |            60 |
+|         105 | David      | Austin    | not available | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         106 | Valli      | Pataballa | not available | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         107 | Diana      | Lorentz   | not available | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.10 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.10 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.10 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+
+mysql> SELECT CONCAT(FIRST_NAME, ' ', LAST_NAME) AS Names,
+    ->        DEPARTMENT_ID
+    -> FROM Employees
+    -> WHERE DEPARTMENT_ID IN (30, 100)
+    -> ORDER BY DEPARTMENT_ID ASC;
++---------------+---------------+
+| Names         | DEPARTMENT_ID |
++---------------+---------------+
+| Diana Lorentz |            30 |
++---------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY BETWEEN 10000 and 15000;
++-----------------+----------+
+| Names           | SALARY   |
++-----------------+----------+
+| Nancy Greenberg | 13200.00 |
++-----------------+----------+
+1 row in set (0.01 sec)
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY NOT BETWEEN 10000 and 15000;
++------------------+----------+
+| Names            | SALARY   |
++------------------+----------+
+| Steven King      | 26400.00 |
+| Neena Kochhar    | 18700.00 |
+| Lex De Haan      | 18700.00 |
+| Alexander Hunold |  9900.00 |
+| Bruce Ernst      |  6600.00 |
+| David Austin     |  5280.00 |
+| Valli Pataballa  |  5280.00 |
+| Diana Lorentz    |  4620.00 |
+| Daniel Faviet    |  9900.00 |
++------------------+----------+
+9 rows in set (0.00 sec)
+
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY NOT BETWEEN 10000 and 15000 AND DEPARTMENT_ID IN (30,100);
++---------------+---------+
+| Names         | SALARY  |
++---------------+---------+
+| Diana Lorentz | 4620.00 |
++---------------+---------+
+1 row in set (0.00 sec)
+
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY BETWEEN 10000 and 15000;
++-----------------+----------+
+| Names           | SALARY   |
++-----------------+----------+
+| Nancy Greenberg | 13200.00 |
++-----------------+----------+
+1 row in set (0.01 sec)
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY NOT BETWEEN 10000 and 15000;
++------------------+----------+
+| Names            | SALARY   |
++------------------+----------+
+| Steven King      | 26400.00 |
+| Neena Kochhar    | 18700.00 |
+| Lex De Haan      | 18700.00 |
+| Alexander Hunold |  9900.00 |
+| Bruce Ernst      |  6600.00 |
+| David Austin     |  5280.00 |
+| Valli Pataballa  |  5280.00 |
+| Diana Lorentz    |  4620.00 |
+| Daniel Faviet    |  9900.00 |
++------------------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,SALARY
+    -> from Employees
+    -> where SALARY NOT BETWEEN 10000 and 15000 AND DEPARTMENT_ID IN (30,100);
++---------------+---------+
+| Names         | SALARY  |
++---------------+---------+
+| Diana Lorentz | 4620.00 |
++---------------+---------+
+1 row in set (0.00 sec)
+
+
+mysql> select concat(FIRST_NAME ,' ', LAST_NAME) as Names,HIRE_DATE
+    -> from Employees
+    -> where YEAR(HIRE_DATE) = 1987;
++------------------+------------+
+| Names            | HIRE_DATE  |
++------------------+------------+
+| Steven King      | 1987-06-17 |
+| Neena Kochhar    | 1987-06-18 |
+| Lex De Haan      | 1987-06-19 |
+| Alexander Hunold | 1987-06-20 |
+| Bruce Ernst      | 1987-06-21 |
+| David Austin     | 1987-06-22 |
+| Valli Pataballa  | 1987-06-23 |
+| Diana Lorentz    | 1987-06-24 |
+| Nancy Greenberg  | 1987-06-25 |
+| Daniel Faviet    | 1987-06-26 |
++------------------+------------+
+10 rows in set (0.01 sec)
+
+
+mysql> select FIRST_NAME
+    -> from Employees
+    -> where FIRST_NAME LIKE '%b%' and FIRST_NAME LIKE '%c%';
++------------+
+| FIRST_NAME |
++------------+
+| Bruce      |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select LAST_NAME,JOB_ID,SALARY
+    -> from Employees
+    -> where JOB_ID IN ('IT_PROG', 'SH_CLERK') AND SALARY NOT IN (4500,10000,15000);
++-----------+---------+---------+
+| LAST_NAME | JOB_ID  | SALARY  |
++-----------+---------+---------+
+| Hunold    | IT_PROG | 9900.00 |
+| Ernst     | IT_PROG | 6600.00 |
+| Austin    | IT_PROG | 5280.00 |
+| Pataballa | IT_PROG | 5280.00 |
+| Lorentz   | IT_PROG | 4620.00 |
++-----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select LAST_NAME
+    -> from Employees
+    -> where length(LAST_NAME) = 6;
++-----------+
+| LAST_NAME |
++-----------+
+| Hunold    |
+| Austin    |
+| Faviet    |
++-----------+
+3 rows in set (0.00 sec)
+
+
+mysql> select FIRST_NAME
+    -> from Employees
+    -> where FIRST_NAME LIKE '__e%';
++------------+
+| FIRST_NAME |
++------------+
+| Steven     |
+| Neena      |
+| Alexander  |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> select LAST_NAME
+    -> from Employees
+    -> where LAST_NAME LIKE '__e%';
++-----------+
+| LAST_NAME |
++-----------+
+| Greenberg |
++-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select distinct JOB_ID
+    -> from Employees;
++---------+
+| JOB_ID  |
++---------+
+| AD_PRES |
+| AD_VP   |
+| IT_PROG |
+| SA_MAN  |
++---------+
+4 rows in set (0.00 sec)
+
+
+mysql> SELECT *
+    -> FROM Employees
+    -> WHERE LAST_NAME IN ('BLAKE', 'SCOTT', 'KING', 'FORD');
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | not available | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.10 |         10 |           200 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+1 row in set (0.00 sec)

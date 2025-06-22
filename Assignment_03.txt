@@ -1,0 +1,313 @@
+
+mysql> use Assignment_03
+Database changed
+mysql> CREATE TABLE Employees (
+    ->     EMPLOYEE_ID     INT PRIMARY KEY,
+    ->     FIRST_NAME      VARCHAR(50),
+    ->     LAST_NAME       VARCHAR(50),
+    ->     EMAIL           VARCHAR(50) UNIQUE,
+    ->     PHONE_NUMBER    VARCHAR(20),
+    ->     HIRE_DATE       DATE,
+    ->     JOB_ID          VARCHAR(20),
+    ->     SALARY          DECIMAL(10,2),
+    ->     COMMISSION_PCT  DECIMAL(5,2),
+    ->     MANAGER_ID      INT,
+    ->     DEPARTMENT_ID   INT
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Employees (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, MANAGER_ID, DEPARTMENT_ID)
+    -> VALUES
+    -> (100, 'Steven', 'King', 'SKING', '515.123.4567', '1987-06-17', 'AD_PRES', 24000.00, 0.00, 10, 200),
+    -> (101, 'Neena', 'Kochhar', 'NKOCHHAR', '515.123.4568', '1987-06-18', 'AD_VP', 17000.00, 0.00, 10, 200),
+    -> (102, 'Lex', 'De Haan', 'LDEHAAN', '515.123.4569', '1987-06-19', 'AD_VP', 17000.00, 0.00, 200, 10),
+    -> (103, 'Alexander', 'Hunold', 'AHUNOLD', '590.423.4567', '1987-06-20', 'IT_PROG', 9000.00, 0.00, 103, 60),
+    -> (104, 'Bruce', 'Ernst', 'BERNST', '590.423.4568', '1987-06-21', 'IT_PROG', 6000.00, 0.00, 103, 60),
+    -> (105, 'David', 'Austin', 'DAUSTIN', '590.423.4569', '1987-06-22', 'IT_PROG', 4800.00, 0.00, 103, 60),
+    -> (106, 'Valli', 'Pataballa', 'VPATABAL', '590.423.4560', '1987-06-23', 'IT_PROG', 4800.00, 0.00, 103, 60),
+    -> (107, 'Diana', 'Lorentz', 'DLORENTZ', '590.423.5567', '1987-06-24', 'IT_PROG', 4200.00, 0.00, 114, 30),
+    -> (108, 'Nancy', 'Greenberg', 'NGREENBE', '515.124.4569', '1987-06-25', 'SA_MAN', 12000.00, 0.00, 145, 80),
+    -> (109, 'Daniel', 'Faviet', 'DFAVIET', '515.124.4169', '1987-06-26', 'SA_MAN', 9000.00, 0.00, 145, 80);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES | 24000.00 |           0.00 |         10 |           200 |
+|         101 | Neena      | Kochhar   | NKOCHHAR | 515.123.4568 | 1987-06-18 | AD_VP   | 17000.00 |           0.00 |         10 |           200 |
+|         102 | Lex        | De Haan   | LDEHAAN  | 515.123.4569 | 1987-06-19 | AD_VP   | 17000.00 |           0.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    | AHUNOLD  | 590.423.4567 | 1987-06-20 | IT_PROG |  9000.00 |           0.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     | BERNST   | 590.423.4568 | 1987-06-21 | IT_PROG |  6000.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |  4800.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |  4800.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | DLORENTZ | 590.423.5567 | 1987-06-24 | IT_PROG |  4200.00 |           0.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg | NGREENBE | 515.124.4569 | 1987-06-25 | SA_MAN  | 12000.00 |           0.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    | DFAVIET  | 515.124.4169 | 1987-06-26 | SA_MAN  |  9000.00 |           0.00 |        145 |            80 |
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.01 sec)
+
+mysql> CREATE TABLE Department (
+    ->     DEPARTMENT_ID   INT PRIMARY KEY,
+    ->     DEPARTMENT_NAME VARCHAR(50) NOT NULL,
+    ->     MANAGER_ID      INT,
+    ->     LOCATION_ID     INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO Department (DEPARTMENT_ID, DEPARTMENT_NAME, MANAGER_ID, LOCATION_ID)
+    -> VALUES
+    -> (10, 'Administration', 200, 1700),
+    -> (20, 'Marketing', 201, 1800),
+    -> (30, 'Purchasing', 114, 1700),
+    -> (40, 'Human Resources', 203, 2400),
+    -> (50, 'Shipping', NULL, 1500),
+    -> (60, 'IT', 103, 1400),
+    -> (70, 'Public Relations', 204, 2700),
+    -> (80, 'Sales', 145, 2500);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from Department;
++---------------+------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME  | MANAGER_ID | LOCATION_ID |
++---------------+------------------+------------+-------------+
+|            10 | Administration   |        200 |        1700 |
+|            20 | Marketing        |        201 |        1800 |
+|            30 | Purchasing       |        114 |        1700 |
+|            40 | Human Resources  |        203 |        2400 |
+|            50 | Shipping         |       NULL |        1500 |
+|            60 | IT               |        103 |        1400 |
+|            70 | Public Relations |        204 |        2700 |
+|            80 | Sales            |        145 |        2500 |
++---------------+------------------+------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into Department
+    -> values
+    -> (90,'Computer Engineering',105,1300),
+    -> (100,'Information Technology',138,2200),
+    -> (101,'Developer',150,1000);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table Department
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update Department
+    -> set MANAGER_ID=121 where DEPARTMENT_NAME='Shipping';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Department;
++---------------+------------------------+------------+-------------+
+| DEPARTMENT_ID | DEPARTMENT_NAME        | MANAGER_ID | LOCATION_ID |
++---------------+------------------------+------------+-------------+
+|            10 | Administration         |        200 |        1700 |
+|            20 | Marketing              |        201 |        1800 |
+|            30 | Purchasing             |        114 |        1700 |
+|            40 | Human Resources        |        203 |        2400 |
+|            50 | Shipping               |        121 |        1500 |
+|            60 | IT                     |        103 |        1400 |
+|            70 | Public Relations       |        204 |        2700 |
+|            80 | Sales                  |        145 |        2500 |
+|            90 | Computer Engineering   |        105 |        1300 |
+|           100 | Information Technology |        138 |        2200 |
+|           101 | Developer              |        150 |        1000 |
++---------------+------------------------+------------+-------------+
+11 rows in set (0.00 sec)
+
+
+mysql>
+mysql> CREATE TABLE Jobs (
+    ->     JOB_ID      VARCHAR(20) PRIMARY KEY,
+    ->     JOB_TITLE   VARCHAR(100),
+    ->     MIN_SALARY  INT,
+    ->     MAX_SALARY  INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO Jobs (JOB_ID, JOB_TITLE, MIN_SALARY, MAX_SALARY)
+    -> VALUES
+    -> ('AD_PRES', 'President', 20000, 40000),
+    -> ('AD_VP', 'Administration Vice President', 15000, 30000),
+    -> ('AD_ASST', 'Administration Assistant', 3000, 6000),
+    -> ('FI_MGR', 'Finance Manager', 8200, 16000),
+    -> ('FI_ACCOUNT', 'Accountant', 4200, 9000),
+    -> ('AC_MGR', 'Accounting Manager', 8200, 16000),
+    -> ('AC_ACCOUNT', 'Public Accountant', 4200, 9000),
+    -> ('SA_MAN', 'Sales Manager', 10000, 20000);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+mysql> update Employees
+    -> set salary= salary * 1.10;
+Query OK, 10 rows affected (0.01 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | EMAIL    | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING    | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.00 |         10 |           200 |
+|         101 | Neena      | Kochhar   | NKOCHHAR | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.00 |         10 |           200 |
+|         102 | Lex        | De Haan   | LDEHAAN  | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    | AHUNOLD  | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     | BERNST   | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN  | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | DLORENTZ | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg | NGREENBE | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    | DFAVIET  | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.00 |        145 |            80 |
++-------------+------------+-----------+----------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> update Employees
+    -> set EMAIL = 'not available'
+    -> WHERE DEPARTMENT_ID = 80
+    -> AND COMMISSION_PCT < 0.20;
+ERROR 1062 (23000): Duplicate entry 'not available' for key 'employees.EMAIL'
+mysql>
+mysql>
+mysql> alter table Employees
+    -> modify Email varchar(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employees;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | int           | NO   | PRI | NULL    |       |
+| FIRST_NAME     | varchar(50)   | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(50)   | YES  |     | NULL    |       |
+| Email          | varchar(50)   | YES  | UNI | NULL    |       |
+| PHONE_NUMBER   | varchar(20)   | YES  |     | NULL    |       |
+| HIRE_DATE      | date          | YES  |     | NULL    |       |
+| JOB_ID         | varchar(20)   | YES  |     | NULL    |       |
+| SALARY         | decimal(10,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(5,2)  | YES  |     | NULL    |       |
+| MANAGER_ID     | int           | YES  |     | NULL    |       |
+| DEPARTMENT_ID  | int           | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+11 rows in set (0.02 sec)
+
+mysql> alter  table Employees
+    -> drop index EMAIL;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc Employees;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| EMPLOYEE_ID    | int           | NO   | PRI | NULL    |       |
+| FIRST_NAME     | varchar(50)   | YES  |     | NULL    |       |
+| LAST_NAME      | varchar(50)   | YES  |     | NULL    |       |
+| Email          | varchar(50)   | YES  |     | NULL    |       |
+| PHONE_NUMBER   | varchar(20)   | YES  |     | NULL    |       |
+| HIRE_DATE      | date          | YES  |     | NULL    |       |
+| JOB_ID         | varchar(20)   | YES  |     | NULL    |       |
+| SALARY         | decimal(10,2) | YES  |     | NULL    |       |
+| COMMISSION_PCT | decimal(5,2)  | YES  |     | NULL    |       |
+| MANAGER_ID     | int           | YES  |     | NULL    |       |
+| DEPARTMENT_ID  | int           | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+11 rows in set (0.00 sec)
+
+mysql> update Employees
+    -> set EMAIL = 'not available'
+    -> WHERE DEPARTMENT_ID = 80
+    -> AND COMMISSION_PCT < 0.20;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.00 |         10 |           200 |
+|         101 | Neena      | Kochhar   | NKOCHHAR      | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.00 |         10 |           200 |
+|         102 | Lex        | De Haan   | LDEHAAN       | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    | AHUNOLD       | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     | BERNST        | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | DLORENTZ      | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.00 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> update employees
+    -> set EMAIL = 'not available'
+    -> where department_id = ( select department_name from department where department_name = 'Purchasing');
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.00 |         10 |           200 |
+|         101 | Neena      | Kochhar   | NKOCHHAR      | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.00 |         10 |           200 |
+|         102 | Lex        | De Haan   | LDEHAAN       | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    | AHUNOLD       | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     | BERNST        | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | DLORENTZ      | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.00 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+mysql> update employees
+    -> set EMAIL = 'not available'
+    -> where department_id = ( select department_id from department where department_id = 30);
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | SKING         | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.00 |         10 |           200 |
+|         101 | Neena      | Kochhar   | NKOCHHAR      | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.00 |         10 |           200 |
+|         102 | Lex        | De Haan   | LDEHAAN       | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    | AHUNOLD       | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     | BERNST        | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.00 |        103 |            60 |
+|         105 | David      | Austin    | DAUSTIN       | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         106 | Valli      | Pataballa | VPATABAL      | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   | not available | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.00 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
+
+
+mysql> UPDATE Employees
+    -> SET EMAIL = 'not available',
+    ->     COMMISSION_PCT = 0.10;
+Query OK, 10 rows affected (0.01 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from Employees;
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+| EMPLOYEE_ID | FIRST_NAME | LAST_NAME | Email         | PHONE_NUMBER | HIRE_DATE  | JOB_ID  | SALARY   | COMMISSION_PCT | MANAGER_ID | DEPARTMENT_ID |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+|         100 | Steven     | King      | not available | 515.123.4567 | 1987-06-17 | AD_PRES | 26400.00 |           0.10 |         10 |           200 |
+|         101 | Neena      | Kochhar   | not available | 515.123.4568 | 1987-06-18 | AD_VP   | 18700.00 |           0.10 |         10 |           200 |
+|         102 | Lex        | De Haan   | not available | 515.123.4569 | 1987-06-19 | AD_VP   | 18700.00 |           0.10 |        200 |            10 |
+|         103 | Alexander  | Hunold    | not available | 590.423.4567 | 1987-06-20 | IT_PROG |  9900.00 |           0.10 |        103 |            60 |
+|         104 | Bruce      | Ernst     | not available | 590.423.4568 | 1987-06-21 | IT_PROG |  6600.00 |           0.10 |        103 |            60 |
+|         105 | David      | Austin    | not available | 590.423.4569 | 1987-06-22 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         106 | Valli      | Pataballa | not available | 590.423.4560 | 1987-06-23 | IT_PROG |  5280.00 |           0.10 |        103 |            60 |
+|         107 | Diana      | Lorentz   | not available | 590.423.5567 | 1987-06-24 | IT_PROG |  4620.00 |           0.10 |        114 |            30 |
+|         108 | Nancy      | Greenberg | not available | 515.124.4569 | 1987-06-25 | SA_MAN  | 13200.00 |           0.10 |        145 |            80 |
+|         109 | Daniel     | Faviet    | not available | 515.124.4169 | 1987-06-26 | SA_MAN  |  9900.00 |           0.10 |        145 |            80 |
++-------------+------------+-----------+---------------+--------------+------------+---------+----------+----------------+------------+---------------+
+10 rows in set (0.00 sec)
